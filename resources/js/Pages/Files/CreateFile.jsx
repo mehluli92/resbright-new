@@ -178,7 +178,7 @@ export default function CreateFile() {
                                 <InputError message={errors.description} className="mt-2" />
                                 </div>
 
-                                <div className='px-4 mb-2'>
+                                <div className='px-4 mb-2 pb-2'>
                                 <InputLabel htmlFor="bill_of_lading" value="Bill of Lading"/>
                                 <TextArea
                                     id="bill_of_lading"

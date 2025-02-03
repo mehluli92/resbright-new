@@ -39,7 +39,7 @@ class RbFileCreatedEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.emails.rb_file_created',
+            view: 'emails.rb_file_created',
         );
     }
 

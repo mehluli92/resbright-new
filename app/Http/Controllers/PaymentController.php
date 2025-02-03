@@ -57,9 +57,11 @@ class PaymentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $this->paymentService->updatePayment($request->all());
+        return redirect()->route('file-view', [$request->rb_file_id])->with('success', "Receipt has been sent successfully");
+
     }
 
     /**

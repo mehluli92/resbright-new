@@ -4,7 +4,7 @@ export default function FileDetailsComponent({file}) {
   return (
     // document: file.document || null, // pdf to upload (optional replacement)
     // invoice: file.invoice || null, //pdf invoice
-    <div className='p-4 shadow-lg'>
+    <div className='px-4 shadow-lg h-[480px]'>
         <h2 className='text-lg font-bold py-2'>File Details.</h2>
 
         <div className='grid grid-cols-4 gap-2'>

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Events\PaymentEvent;
 use App\Models\Payment;
+use App\Models\RbFile;
 
 class PaymentService {
 
@@ -13,14 +14,29 @@ class PaymentService {
 
 
     public function createPayment($data) {
-        return Payment::create($data);
+        $payment = Payment::create($data);
+        // event(new PaymentEvent($payment));
+        return $payment;
     }
 
     public function updatePayment($data) {
-        // $payment = Payment::update($data);
         $payment = Payment::find($data['id']);
-       $newPayment = $payment->update($data);
-        event(new PaymentEvent($newPayment));
+        $payment->fill($data);
+        $payment->save();
+        event(new PaymentEvent($payment));
+        $rbfile =  RbFile::find($payment->rb_file_id);
+        if($payment->us_duty !== null){
+            $totalPaid = $payment->us_price + $payment->us_duty;
+            $rbfile->paid = $totalPaid;
+            $rbfile->currency = 'USD';
+            $rbfile->save();
+        } else {
+            $totalPaid = $payment->rtgs_price + $payment->rtgs_duty;
+            $rbfile->paid = $totalPaid;
+            $rbfile->currency = 'ZWG';
+            $rbfile->save();
+        } 
+       
         return $payment;
     }
 

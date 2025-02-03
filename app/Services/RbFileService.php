@@ -31,7 +31,7 @@ class RbFileService {
 
         
         if(Auth::user()->role === 3) {
-            $query->where('id', Auth::user()->id);
+            $query->where('user_id', Auth::user()->id);
         }
         
         if (isset($data['email']) && !empty($data['email'])) {

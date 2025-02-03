@@ -19,7 +19,6 @@ export default function SingleFile({ file }) {
             } catch (error) {
                 
             }
-        
     }
 
     return (
@@ -90,13 +89,16 @@ export default function SingleFile({ file }) {
                         <Link href={`/file/view/${file.id}`}>
                             <span className='capitalize text-gray-500 hover:text-gray-600'>view</span>
                         </Link>
+                        { authUser.role == 3 ? 
+                        '':
                         <Link href={`/file/${file.id}`}>
                             <span className='capitalize text-gray-500 hover:text-gray-600'>
-                                {authUser.id == 3 ? 'edit':'Respond to File'}
+                                {authUser.role == 3 ? 'edit':'Respond to File'}
                             </span>
                         </Link>
+                        }
                         <div>
-                        {authUser.id == 3 ? 
+                        {authUser.role == 3 ? 
                         '':
                         <span 
                         onClick={handleDeleteFile}

@@ -30,7 +30,7 @@ class RbFileQuotation extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Rb File Quotation for '.$this->price->rb_file->id,
+            subject: 'Resbright Investments Import File Invoice ',
         );
     }
 
@@ -40,7 +40,7 @@ class RbFileQuotation extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.emails.rb_file_quotation',
+            view: 'emails.rb_file_quotation',
         );
     }
 

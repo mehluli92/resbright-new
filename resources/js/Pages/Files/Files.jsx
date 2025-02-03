@@ -3,10 +3,11 @@ import NavLink from '@/Components/NavLink'
 import Pagination from '@/Components/Pagination'
 import SecondaryButton from '@/Components/SecondaryButton'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { Head, useForm } from '@inertiajs/react'
+import { Head, useForm, usePage } from '@inertiajs/react'
 import React from 'react'
 
 export default function Files({ files }) {
+  const authUser = usePage().props.auth.user
   const { data, setData, get } = useForm({
     importer: '',
     created_at: '',
@@ -37,9 +38,14 @@ export default function Files({ files }) {
         <div className="mx-auto max-w-7xl sm:px-6">
           <div className="overflow-hidden bg-white">
             <div id="actions-and-filters" className="mb-4 px-4 py-2">
+              {authUser.role == 3 ?
+              '' 
+              :
               <NavLink href={route('file-create-form')}>
-                <SecondaryButton>add File</SecondaryButton>
+              <SecondaryButton>add File</SecondaryButton>
               </NavLink>
+              }
+              
             </div>
 
             {/* Filters Form */}

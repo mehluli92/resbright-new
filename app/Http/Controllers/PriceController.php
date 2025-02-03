@@ -57,9 +57,10 @@ class PriceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $price = $this->priceService->updatePrice($request->all());
+        return redirect()->route('file-view', [$request->rb_file_id])->with('success', "Price created successfully");
     }
 
     /**

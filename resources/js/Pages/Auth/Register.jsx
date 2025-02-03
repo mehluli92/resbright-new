@@ -1,5 +1,6 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
+import PhoneNumber from '@/Components/PhoneNumber';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
@@ -8,10 +9,17 @@ import { Head, Link, useForm } from '@inertiajs/react';
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
+        surname: '',
         email: '',
-        password: '',
+        role: 3,
+        mobile: '',
+        idnumber: '',
         password_confirmation: '',
     });
+
+    function updateMobile (data) {
+        setData('mobile',data)
+    }
 
     const submit = (e) => {
         e.preventDefault();
@@ -43,6 +51,21 @@ export default function Register() {
                     <InputError message={errors.name} className="mt-2" />
                 </div>
 
+                <div className='mt-4'>
+                <InputLabel htmlFor="surname" value="Surname" required={true}/>
+                <TextInput
+                id="surname"
+                name="surname"
+                value={data.surname}
+                className="mt-1 py-1 block w-full"
+                autoComplete="surname"
+                isFocused={true}
+                onChange={(e) => setData('surname', e.target.value)}
+                required
+                />
+                <InputError message={errors.surname} className="mt-2" />
+                </div>
+
                 <div className="mt-4">
                     <InputLabel htmlFor="email" value="Email" />
 
@@ -58,6 +81,26 @@ export default function Register() {
                     />
 
                     <InputError message={errors.email} className="mt-2" />
+                </div>
+
+                <div className='mt-4'>
+                    <InputLabel htmlFor="mobile" value="Mobile Number" required={true}/>
+                    <PhoneNumber id="mobile" updateMobile={updateMobile}/>
+                </div>
+
+                <div className='mt-4'>
+                <InputLabel htmlFor="idnumber" value="ID Number" required={true}/>
+                <TextInput
+                id="idnumber"
+                name="idnumber"
+                value={data.idnumber}
+                className="mt-1 py-1 block w-full"
+                autoComplete="idnumber"
+                isFocused={true}
+                onChange={(e) => setData('idnumber', e.target.value)}
+                required
+                />
+                <InputError message={errors.idnumber} className="mt-2" />
                 </div>
 
                 <div className="mt-4">

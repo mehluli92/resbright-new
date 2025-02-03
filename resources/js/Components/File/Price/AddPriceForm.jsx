@@ -7,6 +7,7 @@ import React from 'react'
 
 export default function AddPriceForm({file}) {
     const {data, setData, post, errors, processing} = useForm({
+        id: file.price.id,
         currency: file.price?.currency || '',
         us_price: file.price?.us_price || '',
         rtgs_price: file.price?.rtgs_price || '',
@@ -17,7 +18,7 @@ export default function AddPriceForm({file}) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        post(route('price-store'))
+        post(route('price-update'))
     }
 
     const handleChange = (e) => {
@@ -34,7 +35,7 @@ export default function AddPriceForm({file}) {
     onSubmit={handleSubmit}
     className="shadow-lg py-2"
     >
-        <h2 className='text-lg font-bold py-2 px-4'>Add Price.</h2>
+        <h2 className='text-lg font-bold py-2 px-4'>Enter Price and an invoice will be sent.</h2>
 
         <div className="px-4 mb-2">
         <InputLabel htmlFor="currency" value="Currency of payment"/>

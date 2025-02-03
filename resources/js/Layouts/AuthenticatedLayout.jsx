@@ -47,18 +47,22 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Rb Files
                                 </NavLink>
+
+                                {user.role !== 3 &&
                                 <NavLink
                                     href={route('user-all')}
                                     active={route().current('user-all')}
                                 >
                                     Users
                                 </NavLink>
-                                <NavLink
+                                }
+
+                               {user.role !== 3 && <NavLink
                                     href={route('role-all')}
                                     active={route().current('role-all')}
                                 >
                                     Roles
-                                </NavLink>
+                                </NavLink>}
                                 
                             </div>
                         </div>

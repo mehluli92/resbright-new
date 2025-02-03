@@ -27,6 +27,10 @@ class RbFileController extends Controller
         return Inertia::render('Files/CreateFile');
     }
 
+    public function customerCreateForm() {
+        return Inertia::render('Files/CustomerCreateFile');
+    }
+
     public function create(Request $request) {
         $request->validate([
             'user_id' => 'required|exists:users,id',

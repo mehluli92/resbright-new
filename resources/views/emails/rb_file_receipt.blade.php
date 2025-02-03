@@ -10,7 +10,7 @@
     <div style="background-color: #ffffff; border: 1px solid #e2e8f0;">
         <div style="display: flex; align-items: center; justify-content: center; background-color: #008b8b; padding: 36px 48px; margin: 2rem;">
            <h2 style="color: #ffffff; font-size: 1.87rem; font-weight: 300; margin:0;">
-                Your Rb File Receipt number {{$paymet->id}}.
+                Your Rb File Receipt number {{$payment->rb_file->id}}.
             </h2>
         </div>
         <div style="padding-left: 48px; padding-right: 48px; color: #636363; font-size: 14px">
@@ -22,7 +22,7 @@
 
             <h3 style="color: #008b8b; display: block; font-weight: bold; font-size: 18px; line-height: 130%">
                 [RbFile #{{$payment->rb_file->ref}}]
-                ({{$payment->rb_file->updated_at}})
+                ({{ \Carbon\Carbon::parse($payment->rb_file->updated_at)->format('F j, Y, g:i a') }})
             </h3>
 
             <table 
@@ -52,28 +52,38 @@
                     {{-- {{$price->rb_file->quantity_of_boxes}} --}}
                 </td>
               </tr>
-              {{-- <tr>
-                <td colspan="2" style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;"
-                >
-                Service Fee:
-                </td>
-                <td style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;"
-                >{{$price->us_price}}
-                </td>
-              </tr> --}}
               <tr>
                 <td colspan="2" style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;"
                 >Duty:</td>
                 <td style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;"
-                >{{$payment->us_duty}}</td>
+                >
+                @if ($payment->us_duty)
+                   USD {{$payment->us_duty}} 
+                @else
+                  ZWG {{$payment->rtgs_duty}}
+                @endif
+                </td>
               </tr>
               <tr>
-                <td colspan="2" style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;">Service Fee:</td>
-                <td style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;">{{$payment->us_price}}</td>
+                <td colspan="2" style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;">
+                  Service Fee:</td>
+                <td style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;">
+                  @if ($payment->us_price)
+                      USD {{$payment->us_price}}
+                  @else
+                      ZWG {{$payment->rtgs_price}}
+                  @endif
+                </td>
               </tr>
               <tr>
                 <td colspan="2" style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;">Total:</td>
-                <td style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;">{{$payment->rb_file->paid}}</td>
+                <td style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;">
+                  @if ($payment->us_price)
+                    USD {{$payment->rb_file->paid}}
+                  @else
+                    ZWG {{$payment->rb_file->paid}}
+                  @endif
+                </td>
               </tr>
             </table>
 
@@ -83,7 +93,7 @@
                 Destination Address:
             </h3>
 
-            <p>{{$price->rb_file->address1}} {{$price->rb_file->address2}} {{$price->rb_file->country}}</p>
+            <p>{{$payment->rb_file->destination->address1}} {{$payment->rb_file->destination->address2}} {{$payment->rb_file->destination->country}}</p>
         </div>
     </div>
     <div>

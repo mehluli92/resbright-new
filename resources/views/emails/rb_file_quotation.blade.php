@@ -22,7 +22,7 @@
 
             <h3 style="color: #008b8b; display: block; font-weight: bold; font-size: 18px; line-height: 130%">
                 [RbFile #{{$price->rb_file->ref}}]
-                ({{$price->rb_file->updated_at}})
+               ({{ \Carbon\Carbon::parse($price->rb_file->updated_at)->format('F j, Y, g:i a') }})
             </h3>
 
             <table 
@@ -52,28 +52,38 @@
                     {{-- {{$price->rb_file->quantity_of_boxes}} --}}
                 </td>
               </tr>
-              {{-- <tr>
-                <td colspan="2" style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;"
-                >
-                Service Fee:
-                </td>
-                <td style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;"
-                >{{$price->us_price}}
-                </td>
-              </tr> --}}
               <tr>
                 <td colspan="2" style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;"
                 >Duty:</td>
                 <td style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;"
-                >{{$price->us_duty}}</td>
+                >
+                @if ($price->us_duty)
+                 USD {{$price->us_duty}}
+                @else
+                 ZWG {{$price->rtgs_duty}}
+                @endif
+              </td>
               </tr>
               <tr>
-                <td colspan="2" style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;">Service Fee:</td>
-                <td style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;">{{$price->us_price}}</td>
+                <td colspan="2" style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;">
+                  Service Fee:</td>
+                <td style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;">
+                  @if ($price->us_price)
+                   USD {{$price->us_price}}
+                  @else
+                   ZWG {{$price->rtgs_price}}  
+                  @endif
+                </td>
               </tr>
               <tr>
                 <td colspan="2" style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;">Total:</td>
-                <td style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;">Zig645</td>
+                <td style="color: #636363; border: 1px solid #e5e5e5; padding: 12px; text-align: left; vertical-align: middle; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; word-wrap: break-word;">
+                  @if ($price->us_price)
+                    USD  {{$price->us_price + $price->us_duty}}
+                  @else
+                    ZWG  {{$price->rtgs_price + $price->rtgs_duty}}
+                  @endif
+                </td>
               </tr>
             </table>
 
@@ -83,7 +93,7 @@
                 Destination Address:
             </h3>
 
-            <p>{{$price->rb_file->address1}} {{$price->rb_file->address2}} {{$price->rb_file->country}}</p>
+            <p>{{$price->rb_file->destination->address1}} {{$price->rb_file->destination->address2}} {{$price->rb_file->destination->country}}</p>
             <p>We look forward to delivering your goods soon.</p>
         </div>
     </div>

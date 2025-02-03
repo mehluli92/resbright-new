@@ -7,8 +7,12 @@ export default function ClientDashboard({data}) {
     <div className='space-y-4'>
       <div>
         <p>Hello {data.name} {data.surname}!</p>
-        <p>Welcome to your Resbright Investments portal.</p>
-        <p>To request for our import service click here.</p>
+        <p>
+          Welcome to your Resbright Investments portal. 
+          Here you can start an import 
+          <a className='text-blue-700 hover:text-blue-600 px-1' href={route('customer-file-create-form')}>here</a>
+           or simply track your goods.
+        </p>
       </div>
       <ClientRecentFiles files={data.rb_files}/>
 

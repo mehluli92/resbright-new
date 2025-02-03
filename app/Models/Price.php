@@ -18,6 +18,6 @@ class Price extends Model
     //rbfile relationship
     public function rb_file()
     {
-        return $this->belongsTo('App\RbFile');
+        return $this->belongsTo('App\Models\RbFile');
     }
 }
