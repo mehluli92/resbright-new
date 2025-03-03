@@ -12,4 +12,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/file-update/{id}', [RbFileController::class, 'update'])->name('file-update');
     Route::delete('/file/{id}', action: [RbFileController::class, 'delete'])->name('file-delete');
     Route::get('/download/invoices/{filePath}', [RbFileController::class, 'downloadInvoice'])->name('file-download');
+    Route::get('/download/document/{fileName}', [RbFileController::class, 'downloadDocument'])->name('document-download');
 });

@@ -6,6 +6,14 @@ export default function SingleFile({ file }) {
     const authUser = usePage().props.auth.user
     const {  delete: deleteForm, errors, processing } = useForm({})
 
+    const handleDownload = (fileName) => {
+        window.location.href = route("file-download", fileName);
+    };
+
+    const handleDownloadFile = (fileName) => {
+        window.location.href = route("document-download", fileName);
+    };
+
 
     function handleClick() {
         setOpen(!open)
@@ -36,12 +44,9 @@ export default function SingleFile({ file }) {
                 <p className="w-1/2 md:w-auto truncate">{file.supplier}</p>
                 <p className="w-1/2 md:w-auto text-blue-600">
                     {file.invoice &&
-                    <Link
-                    href={`/download/${file.invoice}`}
-                    download
-                    >
-                        Download
-                    </Link>
+                    <button onClick={() => handleDownload(file.invoice)}>
+                        Down
+                    </button>
                     }
                     {!file.invoice &&
                         'Missing invoice'
@@ -49,7 +54,16 @@ export default function SingleFile({ file }) {
                 </p>
                 <p className="w-1/2 md:w-auto text-gray-700">No</p>
                 <p className="w-1/2 md:w-auto text-gray-700">{file.tarrif}</p>
-                <p className="w-1/2 md:w-auto text-blue-600">Download</p>
+                <p className="w-1/2 md:w-auto text-blue-600">
+                    {file.document &&
+                        <button onClick={() => handleDownloadFile(file.document)}>
+                        Download
+                    </button>
+                    }
+                    {!file.document &&
+                        'Missing File'
+                    }
+                </p>
             </div>
 
             {/* Expanded Section */}

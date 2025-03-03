@@ -7,6 +7,7 @@ use App\Mail\UserCreatedEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
+use Log;
 
 
 class SendUserCreatedEmail
@@ -24,9 +25,11 @@ class SendUserCreatedEmail
      */
     public function handle(UserCreated $event): void
     {
-        Mail::to($event->user->email)
+        $user = $event->user;
+        $email = $event->user->email;
+        Mail::to($email)
         ->send(
-            new UserCreatedEmail($event->user)
+            new UserCreatedEmail($user)
         );
     }
 }

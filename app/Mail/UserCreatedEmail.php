@@ -10,11 +10,12 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
+
 class UserCreatedEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
+    public User $user;
 
     /**
      * Create a new message instance.
@@ -40,7 +41,8 @@ class UserCreatedEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.emails.user_created',
+            view: 'emails.user_created',
+            with: ['user' => $this->user]
         );
     }
 

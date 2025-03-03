@@ -6,6 +6,8 @@ use App\Services\RbFileService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Log;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+
 
 class RbFileController extends Controller
 {
@@ -55,9 +57,9 @@ class RbFileController extends Controller
         return redirect()->route('file-all')->with('success', "Rb file updated successfully");
     }
 
-    public function downloadInvoice($fileName) {
+    public function downloadInvoice(Request $request, $fileName) {
         // Construct the full file path
-        $filePath = public_path('invoices'.DIRECTORY_SEPARATOR. $fileName);
+        $filePath = public_path($fileName);
     
         // Check if the file exists
         if (!file_exists($filePath)) {
@@ -71,6 +73,23 @@ class RbFileController extends Controller
         return response()->download($filePath);
     }
     
+    public function downloadDocument(Request $request, $fileName) {
+        // Construct the full file path
+        $filePath = public_path($fileName);
+    
+        // Check if the file exists
+        if (!file_exists($filePath)) {
+            // Log the error with the missing file's path
+            Log::error("File not found: {$filePath}");
+            
+            // Return a 404 response if the file is missing
+            abort(404, 'File not found');        }
+    
+        // Proceed to download the file if it exists
+        return response()->download($filePath);
+    }
+
+
 
     public function view($id){
         $file = $this->rbFileService->getFile($id);
