@@ -8,7 +8,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/user-all', [UserController::class, 'index'])->name('user-all');
     Route::get('/create-user', [UserController::class, 'createUserForm'])->name('create-user');
     Route::get('/user/view/{id}', [UserController::class, 'view'])->name('view-user');
-    Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user-update');
+    Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update.entity');
     Route::get('/user-update-form/{id}', [UserController::class, 'getUpdateForm'])->name('user-update-f');
     Route::post('/user-store', [UserController::class, 'create'])->name('user-store');
     Route::delete('/user-delete/{id}', [UserController::class, 'delete'])->name('user-delete');

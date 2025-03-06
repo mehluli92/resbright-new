@@ -22,7 +22,6 @@ export default function CreateFile() {
         weight: 0,
         quantity_of_boxes: 1,
         manifest: '', //big text
-        container: '',
         paid: '',
         currency: 0,
         document: null, //pdf to upload

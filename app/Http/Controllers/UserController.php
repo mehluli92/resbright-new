@@ -85,6 +85,7 @@ class UserController extends Controller
             'idnumber' => 'required|string',
         ]);
 
+        Log::info($request);
         $this->userService->updateUser($request->all(), $id);
         return redirect()->route('user-all')->with('success', "User updated successfully.");
     }

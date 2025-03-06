@@ -18,11 +18,10 @@ export default function UpdateUser({ roles, user }) {
     idnumber: user.idnumber || '',
   })
 
-console.log(data)
   const handleSubmit = (e) => {
     e.preventDefault()
     put(
-      route('user-update', user.id)
+      route('user.update.entity', user.id)
     )
   }
 
