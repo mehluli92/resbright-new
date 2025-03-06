@@ -35,7 +35,6 @@ export default function EditFile({ file }) {
         country:  file.destination?.country || '',
     })
 
-    console.log(file)
 
     const handleSubmit = (e) => {
         e.preventDefault()

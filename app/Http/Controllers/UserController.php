@@ -6,6 +6,7 @@ use App\Services\RoleService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Log;
 
 class UserController extends Controller
 {
@@ -74,16 +75,17 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request) {
+    public function update(Request $request, $id) {
         $request->validate([
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email',
             'role' => 'required',
             'mobile' => 'required|string',
             'idnumber' => 'required|string',
         ]);
-        $this->userService->createUser($request->all());
+
+        $this->userService->updateUser($request->all(), $id);
         return redirect()->route('user-all')->with('success', "User updated successfully.");
     }
 

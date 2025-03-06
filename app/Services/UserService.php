@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Events\UserCreated;
 use App\Models\User;
+use Log;
 
 
 class UserService {
@@ -62,8 +63,10 @@ class UserService {
         return $user;
     }
 
-    public function updateUser($data) {
-        return User::update($data);
+    public function updateUser($data, $id) {
+        $user = User::findOrFail($id); // Find the user by ID
+        $user->update($data); // Update the user instance
+        return $user;
     }
 
     public function deleteUser($id) {

@@ -18,13 +18,16 @@ export default function UpdateUser({ roles, user }) {
     idnumber: user.idnumber || '',
   })
 
+console.log(data)
   const handleSubmit = (e) => {
     e.preventDefault()
-    put(route('user-update', { id: user.id }))
+    put(
+      route('user-update', user.id)
+    )
   }
 
   function handleRoleUpdate(data) {
-    setData('role', data)
+    setData('role', parseInt(data))
   }
 
   function updateMobile(data) {
