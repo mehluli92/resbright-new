@@ -45,7 +45,7 @@ export default function SingleFile({ file }) {
                 <p className="w-1/2 md:w-auto text-blue-600">
                     {file.invoice &&
                     <button onClick={() => handleDownload(file.invoice)}>
-                        Down
+                        Download
                     </button>
                     }
                     {!file.invoice &&
